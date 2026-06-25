@@ -1,3 +1,5 @@
+const PARTICIPANTS_COUNT_ID = 'fs3avc';
+
 let timerId;
 let type;
 let threshold;
@@ -22,7 +24,7 @@ chrome.storage.local.get(['mb_temp'], (res) => {
 
 function startLogic() {
     // Icon with the number of google meet participants
-    if (document.getElementsByClassName('fs3avc').length <= 0) {
+    if (document.getElementsByClassName(PARTICIPANTS_COUNT_ID).length <= 0) {
         alert("Please make sure you have already joined the room!");
         return;
     }
@@ -63,7 +65,7 @@ function executeInterval(callback) {
 }
 
 function participantsControl() {
-    let numParticipantsElement = document.getElementsByClassName('fs3avc')[0];
+    let numParticipantsElement = document.getElementsByClassName(PARTICIPANTS_COUNT_ID)[0];
     if (typeof numParticipantsElement === "undefined")
         return;
     let numParticipants = parseInt(numParticipantsElement.innerHTML);
@@ -137,7 +139,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         console.log("Threshold changed");
     }
     else if (request.action === "reset_extension") {
-        if (document.getElementsByClassName('fs3avc').length <= 0) {
+        if (document.getElementsByClassName(PARTICIPANTS_COUNT_ID).length <= 0) {
             alert("Please make sure you have already joined the room!");
             return;
         }
